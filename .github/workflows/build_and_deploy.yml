@@ -54,6 +54,6 @@ jobs:
 
       - name: Delete old droplet
         run: |
-          doctl compute droplet delete discordbot-bbcapprentices
+          doctl compute droplet delete discordbot-bbcapprentices --force
           doctl compute droplet create discordbot-bbcapprentices --image beeb-bot --size s-1vcpu-1gb
       
