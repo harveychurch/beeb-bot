@@ -51,12 +51,23 @@ jobs:
       
       - name: Log in to DigitalOcean Container Registry with short-lived credentials
         run: doctl registry login --expiry-seconds 600
-
-      - name: Delete old droplet
-        run: doctl compute droplet delete discordbot-bbcapprentices --force
+        
+        
       
-      - name: Create new droplet based on image
-        run: doctl compute droplet create discordbot-bbcapprentices --image beeb-bot:$(echo $GITHUB_SHA | head -c7) --size s-1vcpu-1gb --region lon1
-  
-
-      
+      - name: Install Docker Image on Droplet
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            docker login -u ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} -p ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} registry.digitalocean.com
+            # Stop running container
+            docker stop $(echo $IMAGE_NAME)
+            # Remove old container
+            docker rm $(echo $IMAGE_NAME)
+            # Run a new container from a new image
+            docker run -d \
+            --restart always \
+            --name $(echo $IMAGE_NAME) \
+            $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
+          host: ${{ secrets.HOST }}
+          user: ${{ secrets.USERNAME}}
+          key: ${{ secrets.SSHKEY}}
