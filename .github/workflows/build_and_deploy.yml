@@ -53,8 +53,9 @@ jobs:
         run: doctl registry login --expiry-seconds 600
         
         
-      
-      - name: Install Docker Image on Droplet
+    
+          
+      - name: Docker install via SSH
         uses: fifsky/ssh-action@master
         with:
           command: |
@@ -70,4 +71,5 @@ jobs:
             $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
           host: ${{ secrets.HOST }}
           user: ${{ secrets.USERNAME}}
+          pass: ${{ secrets.PASSWORD}}
           key: ${{ secrets.SSHKEY}}
