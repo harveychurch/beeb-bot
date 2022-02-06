@@ -12,8 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Return github.ref_name
-        run: echo ${{github.ref}}
+        run: echo ${{github.ref_type}}
   create_release:
+    if: github.ref_type == 'tag'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
