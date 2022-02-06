@@ -5,7 +5,7 @@ on:
     branches:
     - main
     tags:
-     - '*'
+     - 'v0.*'
 
 jobs:
   print_ref_name:
@@ -14,7 +14,6 @@ jobs:
       - name: Return github.ref_name
         run: echo ${{github.ref}}
   create_release:
-    if: contains(github.ref_name, 'v')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
