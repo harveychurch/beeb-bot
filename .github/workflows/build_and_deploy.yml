@@ -15,6 +15,7 @@ jobs:
         uses: actions/checkout@v2.4.0
       - name: Create Release on GitHub
         uses: softprops/action-gh-release@v1
-          
+        with:
+          tag_name: ${{github.ref}}
       
     
