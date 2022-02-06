@@ -3,7 +3,7 @@ name: Deploy Code
 on:
   push:
     branches:
-    - master
+    - main
     tags:
      - v0.*
 
