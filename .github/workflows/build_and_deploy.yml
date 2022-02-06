@@ -1,7 +1,7 @@
 name: Deploy Code
 
 on:
-  push:
+  push: 
     branches:
     - main
     tags:
@@ -16,7 +16,7 @@ jobs:
       - name: Create Release on GitHub
         uses: softprops/action-gh-release@v1
         with:
-           tag_name: ${{ githug.ref}}
+           tag_name: ${{ github.ref}}
            token: ${{ secrets.GITHUB_TOKEN }}
         
           
