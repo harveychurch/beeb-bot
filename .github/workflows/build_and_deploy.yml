@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Return github.ref_name
-        run: echo ${{github.ref_name}}
+        run: echo ${{github.ref}}
   create_release:
     if: contains(github.ref_name, 'v')
     runs-on: ubuntu-latest
