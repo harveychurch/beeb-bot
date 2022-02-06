@@ -13,12 +13,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2.4.0
-      - name: Set env for github tag
-        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Get latest push tag
+        id: tag
+        uses: dawidd6/action-get-tag@v1
       - name: Create Release on GitHub
         uses: softprops/action-gh-release@v1
         with:
-           tag_name: ${{ env.RELEASE_VERSION}}
+           tag_name: ${{steps.tag.outputs.tag}}
            token: ${{ secrets.GITHUB_TOKEN }}
         
           
