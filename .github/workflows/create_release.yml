@@ -1,4 +1,4 @@
-name: Deploy Code
+name: Deploy Code to Digital Ocean
 
 on:
   push: 
@@ -8,11 +8,6 @@ on:
      - 'v0.*'
 
 jobs:
-  print_ref_name:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Return github.ref_name
-        run: echo ${{github.ref_type}}
   create_release:
     if: github.ref_type == 'tag' && contains(github.ref_name,'v')
     runs-on: ubuntu-latest
@@ -24,6 +19,22 @@ jobs:
         with:
            tag_name: ${{ github.ref_name }}
            token: ${{ secrets.GITHUB_TOKEN }}
+  push_to_digital_ocean:
+    needs: create_release
+    runs-on: ubuntu-latest
+    steps:
+     - name: SSH into Droplet and push
+       uses: appleboy/ssh-action@master
+       with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        passphrase: ${{ secrets.PASSPHRASE }}
+        key: ${{secrets.SSHKEY}}
+        script: |
+          cd /${{secrets.HOST}}/beeb-bot
+          pkill -f main.py
+          git pull
+          python main.py
         
           
           
