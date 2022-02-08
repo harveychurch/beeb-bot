@@ -1,7 +1,8 @@
+name: Deploy to Digital Ocean
+
 on:
   release:
-    types: [published]
-
+    types: [created]
     
 jobs:
   push_to_digital_ocean:
