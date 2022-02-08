@@ -1,0 +1,21 @@
+on:
+  release:
+    types: [published]
+
+    
+jobs:
+  push_to_digital_ocean:
+    runs-on: ubuntu-latest
+    steps:
+     - name: SSH into Droplet and push
+       uses: appleboy/ssh-action@master
+       with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        passphrase: ${{ secrets.PASSPHRASE }}
+        key: ${{secrets.SSHKEY}}
+        script: |
+          cd /${{secrets.HOST}}/beeb-bot
+          pkill -f main.py
+          git pull
+          python main.py
