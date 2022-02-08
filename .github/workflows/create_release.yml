@@ -28,7 +28,7 @@ jobs:
        with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
-        passphrase: ${{ secrets.PASSPHRASE }}
+        passphrase: ${{ secrets.PASSWORD }}
         key: ${{secrets.SSHKEY}}
         script: |
           cd /${{secrets.HOST}}/beeb-bot
