@@ -32,7 +32,6 @@ jobs:
         key: ${{secrets.SSHKEY}}
         script: |
           cd ./beeb-bot
-          pkill -f main.py
           git pull
           python main.py
         
