@@ -8,7 +8,7 @@ load_dotenv()
 bot = commands.Bot(command_prefix='!')
 SECRET_TOKEN = os.environ.get("SECRET_TOKEN")
 
-for filename in os.listdir(".\modules"):
+for filename in os.listdir("modules"):
     if filename.endswith(".py"):
         filename_stripped = str(filename.strip(".py"))
         bot.load_extension("modules."+filename_stripped)
