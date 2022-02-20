@@ -34,7 +34,7 @@ jobs:
         script: |
           cd ./beeb-bot
           git pull
-          start_bot.sh
+          ./start_bot.sh
         
           
           
