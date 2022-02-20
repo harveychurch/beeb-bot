@@ -1,27 +1,23 @@
 import discord
-import platform
 import os
 from dotenv import load_dotenv
+from discord.ext import commands
 
 
 load_dotenv() 
-client = discord.Client()
+bot = commands.Bot(command_prefix='!')
 SECRET_TOKEN = os.environ.get("SECRET_TOKEN")
 
-@client.event
+for filename in os.listdir(".\modules"):
+    if filename.endswith(".py"):
+        filename_stripped = str(filename.strip(".py"))
+        bot.load_extension("modules."+filename_stripped)
+        print("Cog {0} has been loaded.".format(filename_stripped))
+
+
+@bot.event
 async def on_ready():
-    print('We have logged in as {0.user}'.format(client))
+    print('We have logged in as {0.user}'.format(bot))
 
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
 
-    if message.content.startswith('$hello'):
-        await message.channel.send("Hello")
-
-    if message.content.startswith('$BBC'):
-        embed = discord.Embed(title="Video")
-        await message.channel.send(embed=embed)
-
-client.run(SECRET_TOKEN)
+bot.run(SECRET_TOKEN)
