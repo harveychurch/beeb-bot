@@ -34,7 +34,7 @@ jobs:
         script: |
           cd ./beeb-bot
           git pull
-          pipenv run python3 main.py
+          start_bot.sh
         
           
           
