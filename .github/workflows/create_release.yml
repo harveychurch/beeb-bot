@@ -32,6 +32,7 @@ jobs:
         key: ${{secrets.SSHKEY}}
         script: |
           cd ./beeb-bot
+          pipenv shell
           git pull
           python3 main.py
         
