@@ -30,6 +30,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         passphrase: ${{ secrets.PASSWORD }}
         key: ${{secrets.SSHKEY}}
+        command_timeout: 5m
         script: |
           cd ./beeb-bot
           git pull
