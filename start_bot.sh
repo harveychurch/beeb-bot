@@ -1,2 +1,2 @@
 echo "Running Startup Script"
-pipenv run python3 main.py
+pipenv run python3 main.py || true
