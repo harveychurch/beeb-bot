@@ -2,6 +2,7 @@ import discord
 import os
 from dotenv import load_dotenv
 from discord.ext import commands
+import subprocess
 
 
 load_dotenv() 
@@ -18,6 +19,10 @@ for filename in os.listdir("modules"):
 @bot.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(bot))
+
+    label = str(subprocess.check_output(["git", "rev-parse","--short","HEAD"])).strip("b'")
+    label = label[:label.index("\\")]
+    await bot.change_presence(activity=discord.Game(name="The current Git hash is.. "+ label))
 
 
 bot.run(SECRET_TOKEN)
