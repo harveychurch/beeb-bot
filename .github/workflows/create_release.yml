@@ -30,7 +30,9 @@ jobs:
         username: ${{ secrets.USERNAME }}
         passphrase: ${{ secrets.PASSWORD }}
         privateKey: ${{secrets.SSHKEY}}
-        command: ./start_bot.sh
+        command: |
+         cd beeb-bot/
+         ./start_bot.sh
         
           
           
