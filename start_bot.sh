@@ -1,6 +1,5 @@
 echo "Running Startup Script"
 pm2 stop main_bot
-cd ./beeb-bot
 git pull
 # For if there have been any changes to the pipefile/dependancies
 pipenv install
