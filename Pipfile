@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 discord = "*"
 python-dotenv = "*"
+discord-py-slash-command = "*"
+requests = "*"
 
 [dev-packages]
 

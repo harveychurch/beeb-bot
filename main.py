@@ -3,10 +3,12 @@ import os
 from dotenv import load_dotenv
 from discord.ext import commands
 import subprocess
+from discord_slash import SlashCommand
 
 
 load_dotenv() 
-bot = commands.Bot(command_prefix='!')
+bot = commands.Bot(command_prefix='!',self_bot=True, intents=discord.Intents())
+slash = SlashCommand(bot,sync_commands=True)
 SECRET_TOKEN = os.environ.get("SECRET_TOKEN")
 
 for filename in os.listdir("modules"):
@@ -20,9 +22,6 @@ for filename in os.listdir("modules"):
 async def on_ready():
     print('We have logged in as {0.user}'.format(bot))
 
-    label = str(subprocess.check_output(["git", "rev-parse","--short","HEAD"])).strip("b'")
-    label = label[:label.index("\\")]
-    await bot.change_presence(activity=discord.Game(name="The current Git hash is.. "+ label))
 
 
 bot.run(SECRET_TOKEN)
